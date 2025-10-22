@@ -1,0 +1,5 @@
+2025-10-21 09:15:00 | Cuenta: 1001 | Tipo: RETIRO | Monto: $100.00 | Saldo Final: $897.00
+2025-10-21 10:00:00 | Cuenta: 1001 | Tipo: RETIRO | Monto: $500.00 | Saldo Final: $644.00
+2025-10-21 11:00:00 | Cuenta: 1001 | Tipo: RETIRO | Monto: $100.00 | Saldo Final: $541.00
+2025-10-20 09:00:00 | Cuenta: 2002 | Tipo: RETIRO | Monto: $300.00 | Saldo Final: $1700.00
+2025-10-21 09:00:00 | Cuenta: 2002 | Tipo: RETIRO | Monto: $200.00 | Saldo Final: $1650.00

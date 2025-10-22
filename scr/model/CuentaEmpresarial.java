@@ -3,19 +3,38 @@ import scr.excepciones.SaldoInsuficienteException;
 import scr.excepciones.OperacionInvalidaException;
 /**
  * Cuenta con un límite máximo de retiro por operación.
+ *
+ * @author Juan
+ * @version 1.0
  */
 public class CuentaEmpresarial extends CuentaBancaria {
     
-    private static final double LIMITE_RETIRO_POR_OPERACION = 5000.0;
+    private double limiteRetiro;
+    private String gestorAsignado;
     private static final double TASA_INTERES_EMPRESARIAL = 0.001; // 0.1%
 
     /**
-     * Constructor de CuentaEmpresarial.
+     * Constructor de CuentaEmpresarial con valores por defecto.
      * @param titular Nombre del titular.
-     * @param numeroCuenta Número de cuenta.
+     * @param numeroCuenta Número de la cuenta.
      */
     public CuentaEmpresarial(String titular, String numeroCuenta) {
         super(titular, numeroCuenta);
+        this.limiteRetiro = 5000.0;
+        this.gestorAsignado = "";
+    }
+
+    /**
+     * Constructor parametrizado de CuentaEmpresarial.
+     * @param titular Nombre del titular.
+     * @param numeroCuenta Número de la cuenta.
+     * @param limiteRetiro Límite máximo de retiro por operación.
+     * @param gestorAsignado Nombre del gestor asignado.
+     */
+    public CuentaEmpresarial(String titular, String numeroCuenta, double limiteRetiro, String gestorAsignado) {
+        super(titular, numeroCuenta);
+        this.limiteRetiro = limiteRetiro;
+        this.gestorAsignado = gestorAsignado;
     }
 
     /**
@@ -23,12 +42,17 @@ public class CuentaEmpresarial extends CuentaBancaria {
      * @param monto Cantidad a retirar.
      * @throws OperacionInvalidaException Si el monto excede el límite o el saldo es insuficiente (encadenada).
      */
+    /**
+     * Retira un monto, validando límites y encadenando excepciones si aplica.
+     * @param monto Cantidad a retirar.
+     * @throws OperacionInvalidaException Si el monto excede el límite o el saldo es insuficiente.
+     */
     @Override
     public void retirar(double monto) throws OperacionInvalidaException {
-        if (monto > LIMITE_RETIRO_POR_OPERACION) {
+        if (monto > this.limiteRetiro) {
             // Lanza OperacionInvalidaException SIN causa encadenada
-            throw new OperacionInvalidaException("El retiro de $" + monto + 
-                " excede el límite máximo por operación de $" + LIMITE_RETIRO_POR_OPERACION);
+            throw new OperacionInvalidaException("El retiro de $" + monto +
+                " excede el límite máximo por operación de $" + this.limiteRetiro);
         }
 
         try {
@@ -50,4 +74,9 @@ public class CuentaEmpresarial extends CuentaBancaria {
         System.out.printf("Cuenta Empresarial %s: Se generaron $%.2f de intereses. Nuevo saldo: $%.2f\n", 
         this.numeroCuenta, interesesGanados, this.saldo);
     }
+
+    public double getLimiteRetiro() { return limiteRetiro; }
+    public void setLimiteRetiro(double limite) { this.limiteRetiro = limite; }
+    public String getGestorAsignado() { return gestorAsignado; }
+    public void setGestorAsignado(String gestor) { this.gestorAsignado = gestor; }
 }
